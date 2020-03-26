@@ -2,12 +2,112 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>Friends Forever @ViewBag.Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/CustomCss/w3-css.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/CustomCss/w3-theme-blue-grey.css" asp-append-version="true">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+    <link href="~/font-awesome/css/all.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/font-awesome/css/fontawesome.min.css" rel="stylesheet" asp-append-version="true" />
+    <!-- Bootstrap Class -->
+    <link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+
+    <!-- Bootstrap Sweatalert Library -->
+    <link href="~/bootstrap-sweetalert/sweetalert.min.css" rel="stylesheet" asp-append-version="true" />
+
+    <style>
+        html, body, h1, h2, h3, h4, h5 {
+            font-family: "Open Sans", sans-serif
+        }
+
+        /*.btn-sm {
+            width: 100px;
+            height: 30px;
+        }*/
+    </style>
 </head>
-<body>
+<body class="w3-theme-l5">
+
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+            <a asp-action="Index" asp-controller="Home" class="w3-bar-item w3-button w3-padding-large w3-theme-d4 navbar-brand">
+                <i class="fas fa-users"></i>&nbsp;Friends Forever
+            </a>
+            <a asp-action="ViewProfile" asp-controller="Home" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings">
+                <i class="fas fa-user-circle"></i>
+            </a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages">
+                <i class="fas fa-comments"></i>
+            </a>
+            <div class="w3-dropdown-hover w3-hide-small">
+                <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">3</span></button>
+                <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+                    <a href="#" class="w3-bar-item w3-button">One new friend request</a>
+                </div>
+            </div>
+
+            <form method="post">
+                <button type="submit" asp-action="Logout" asp-controller="Account"
+                        class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+    </div>
+
     <div>
         @RenderBody()
     </div>
+    <br>
+
+    <script>
+        // Accordion
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+                x.previousElementSibling.className += " w3-theme-d1";
+            } else {
+                x.className = x.className.replace("w3-show", "");
+                x.previousElementSibling.className =
+                    x.previousElementSibling.className.replace(" w3-theme-d1", "");
+            }
+        }
+
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+
+    <!-- Jquery and Bootstrap Library -->
+    <script src="~/jquery/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/jquery-validate/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
+    <script src="~/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
+
+    <!-- Bootstrap Sweatalert Library -->
+    <script src="~/bootstrap-sweetalert/sweetalert.min.js" asp-append-version="true"></script>
+
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts", true)
+    }
 </body>
 </html>

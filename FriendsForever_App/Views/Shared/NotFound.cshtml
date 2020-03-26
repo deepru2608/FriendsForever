@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.ErrorTitle</title>
+    <link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">@ViewBag.ErrorTitle</h4>
+            <p>@ViewBag.ErrorMessage</p>
+            <hr>
+            <a asp-action="Login" asp-controller="Account" class="btn btn-primary">
+                Click here to login
+            </a>
+        </div>
+    </div>
+</body>
+</html>

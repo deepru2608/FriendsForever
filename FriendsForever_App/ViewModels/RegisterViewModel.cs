@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace FriendsForever_App.ViewModels
     {
         [Required]
         [EmailAddress]
+        [DataType(DataType.EmailAddress)]
+        [Remote(action: "IsEmailInUse", controller: "Account")]
         public string Email { get; set; }
         [Required]
         public string FirstName { get; set; }
@@ -17,6 +20,7 @@ namespace FriendsForever_App.ViewModels
         public string LastName { get; set; }
         [Required]
         [Phone]
+        [Remote(action: "IsMobileInUse", controller: "Account")]
         public string MobileNo { get; set; }
         [Required]
         [DataType(DataType.Password)]
@@ -31,5 +35,7 @@ namespace FriendsForever_App.ViewModels
         public string Country { get; set; }
         [Required]
         public DateTime Dob { get; set; }
+        [Required]
+        public string Username { get; set; }
     }
 }

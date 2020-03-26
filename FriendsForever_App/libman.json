@@ -25,6 +25,14 @@
     {
       "library": "jqueryui@1.12.1",
       "destination": "wwwroot/jqueryui"
+    },
+    {
+      "library": "bootstrap-datepicker@1.9.0",
+      "destination": "wwwroot/bootstrap-datepicker"
+    },
+    {
+      "library": "bootstrap-sweetalert@1.0.1",
+      "destination": "wwwroot/bootstrap-sweetalert"
     }
   ]
 }

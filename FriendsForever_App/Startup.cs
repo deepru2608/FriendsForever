@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using reCAPTCHA.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace FriendsForever_App
 {
@@ -39,7 +41,11 @@ namespace FriendsForever_App
                 .AddDefaultTokenProviders();
             services.AddMvc(options =>
             {
+                var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
                 options.EnableEndpointRouting = false;
+                options.Filters.Add(new AuthorizeFilter(policy));
             }).SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             services.AddSession(options =>
@@ -49,10 +55,12 @@ namespace FriendsForever_App
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
 
+
             services.Configure<RecaptchaSettings>(configuration.GetSection("RecaptchaSettingsv3"));
             RecaptchaService.UseRecaptchaNet = true;
             services.AddTransient<IRecaptchaService, RecaptchaService>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<ICenterRepository, CenterRepository>();
         }
 
 
@@ -62,15 +70,21 @@ namespace FriendsForever_App
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithRedirects("/Error/{0}");
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "Default",
-                    template: "{controller=Account}/{action=Register}/{Id?}"
+                    template: "{controller=Home}/{action=Index}/{Id?}"
                 );
             });
         }

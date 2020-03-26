@@ -17,13 +17,21 @@ namespace FriendsForever_App.Data
         }
 
         public DbSet<Country> CountryMaster { get; set; }
+        public DbSet<LogForLogin> LogTableForLogin { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<QualityParameterTable> QualityParameters { get; set; }
+        public DbSet<UserInterest> UserInterestMaster { get; set; }
+        public DbSet<Post> PostMaster { get; set; }
+        public DbSet<Likes> LikesMaster { get; set; }
+        public DbSet<Comments> CommentsMaster { get; set; }
+        public DbSet<PostImages> PostImagesMaster { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Seed();
             modelBuilder.Entity<ApplicationUser>()
                 .Property(e => e.FullName)
-                .HasComputedColumnSql("[LastName] + ', ' + [FirstName]");
+                .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Confirm Email</title>
+    <link href="~/Bootstrap/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <div class="container mt-4">
+        <h3></h3>
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Well done!</h4>
+            <p>Thank you for  confirming your email</p>
+            <hr>
+            <p class="mb-0"><a asp-action="Login" asp-controller="Account" class="btn btn-primary">Click here to login</a></p>
+        </div>
+    </div>
+</body>
+</html>

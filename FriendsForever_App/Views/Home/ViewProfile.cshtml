@@ -1,0 +1,86 @@
+﻿@model ViewProfileViewModel
+@{
+    ViewData["Title"] = "ViewProfile";
+}
+
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+    <div class="card pt-4">
+        <div class="w3-row">
+            <div class="w3-col m12 text-center">
+                <h4><span class="text-primary border-bottom">Edit your profile</span></h4>
+            </div>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            <div class="row m-5">
+                <div class="col-sm-6 pb-2">
+                    @{
+                        var profilePhotoPath = (Model.ProfilePhotoPath ?? "Microsoft_Default.png");
+                    }
+                    <img src="~/Images/ProfileImage/@profilePhotoPath" alt="Avatar" class="w3-left w3-circle w3-margin-right"
+                         style="width:150px; height: 150px;" asp-append-version="true">
+                    <h4 class="pt-2"><span class="text-primary">@Model.FirstName @Model.LastName</span></h4>
+
+                    <div class="pt-3 pb-2">
+                        <input asp-for="ProfilePhoto" />
+                    </div>
+                </div>
+                <div class="col-sm-3 mt-1 mb-1">
+                    <input asp-for="FirstName" class="form-control form-control-sm" />
+                    <input asp-for="LastName" class="form-control form-control-sm mt-1" />
+                </div>
+                <div class="col-sm-3 mt-1 mb-1">
+                    <p><i class="fas fa-user-alt fa-fw w3-margin-right w3-text-theme"></i> Gender: @Model.Gender</p>
+                    <p><i class="fas fa-globe-asia fa-fw w3-margin-right w3-text-theme"></i> Country: @Model.Country</p>
+                </div>
+                <div class="col-sm-4 mt-1 mb-1">
+                    <p><i class="fas fa-mobile-alt fa-fw w3-margin-right w3-text-theme"></i> @Model.MobileNo</p>
+                    <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> @Model.Dob.ToLongDateString()</p>
+                    <p><i class="fas fa-envelope-open-text fa-fw w3-margin-right w3-text-theme"></i> @Model.Email</p>
+                </div>
+                <div class="col-sm-8">
+                    <div class="w3-card w3-round w3-white w3-hide-small">
+                        <div class="w3-container">
+                            <p class="pt-1 text-info">Interests</p>
+                            <p>
+                                @if (Model.UserInterests.Any())
+                                {
+                                    @foreach (var userInterest in Model.UserInterests)
+                                    {
+                                        <span class="w3-tag w3-small w3-theme">@userInterest</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="w3-tag w3-small w3-theme">No interest added.</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">Important Note!</h4>
+                        <p>If you add multiple interest at same time, Just add comman<b>(,)</b> between two interest without spacing.</p>
+                    </div>
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <textarea asp-for="Interest" class="form-control form-control-sm" placeholder="Enter your interest..."></textarea>
+                </div>
+                <div class="col-sm-12 mt-3 text-left">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" asp-for="UpdationFlag">
+                        <label class="custom-control-label text-warning" for="customCheck1" asp-for="UpdationFlag">If you want to update your profile, 
+                        please check this flag, Otherwise your profile is not updated.</label>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <button asp-action="ViewProfile" asp-controller="Home" class="btn btn-sm btn-primary">
+                        <i class="fas fa-user-circle"></i>&nbsp;Update Profile
+                    </button>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-sm btn-primary"><i class="fas fa-backward"></i>&nbsp;Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

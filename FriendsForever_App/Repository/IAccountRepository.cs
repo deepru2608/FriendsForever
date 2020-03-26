@@ -1,4 +1,5 @@
 ﻿using FriendsForever_App.Models;
+using FriendsForever_App.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,9 @@ namespace FriendsForever_App.Repository
     public interface IAccountRepository
     {
         IEnumerable<string> GetCountries();
+
+        ApplicationUser IsMobileInUse(string Mobile);
+
+        Task<int> UpdateUserProfile(ApplicationUser user);
     }
 }

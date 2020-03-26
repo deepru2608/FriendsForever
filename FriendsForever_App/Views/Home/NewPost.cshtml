@@ -1,0 +1,58 @@
+﻿@model NewPostViewModel
+@{
+    ViewData["Title"] = "Create Post";
+}
+
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+    <div class="card pt-4">
+        <div class="w3-row">
+            <div class="w3-col m12 text-center">
+                <h4><span class="text-primary border-bottom">Create New Post</span></h4>
+            </div>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            <div class="row m-5">
+                <div class="col-sm-6 pb-2">
+                    @{
+                        var profilePhotoPath = (Model.ProfilePhotoPath ?? "Microsoft_Default.png");
+                    }
+                    <img src="~/Images/ProfileImage/@profilePhotoPath" alt="Avatar" class="w3-left w3-circle w3-margin-right"
+                         style="width:150px; height: 150px;" asp-append-version="true">
+                    <h4 class="pt-2"><span class="text-primary">@Model.FullName</span></h4>
+                </div>
+                <div class="col-sm-6 pb-2">
+                    <div class="custom-file">
+                        <input asp-for="PostedPhotos" multiple class="form-control custom-file-input">
+                        <label class="custom-file-label">Choose Photo...</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 mt-2">
+                    <textarea class="form-control" asp-for="PostedContent" placeholder="Type your thought..."></textarea>
+                </div>
+                <div class="col-sm-12 mt-2">
+                    <button asp-action="NewPost" asp-controller="Home" class="btn btn-sm btn-primary">
+                        <i class="fas fa-external-link-square-alt"></i>&nbsp;Create Post
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileLabel = $(this).next('.custom-file-label');
+                var files = $(this)[0].files;
+                if (files.length > 1) {
+                    fileLabel.html(files.length + ' files selected');
+                }
+                else if (files.length == 1) {
+                    fileLabel.html(files[0].name);
+                }
+            });
+        });
+    </script>
+}
+

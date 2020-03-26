@@ -19,6 +19,30 @@ namespace FriendsForever_App.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("FriendsForever_App.Models.Comments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CommentedTimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CommentedUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostedId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CommentsMaster");
+                });
+
             modelBuilder.Entity("FriendsForever_App.Models.Country", b =>
                 {
                     b.Property<int>("CountryId")
@@ -1527,6 +1551,195 @@ namespace FriendsForever_App.Migrations
                         });
                 });
 
+            modelBuilder.Entity("FriendsForever_App.Models.Feedback", b =>
+                {
+                    b.Property<string>("FeedBackId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FeedbackMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QualityStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SerialNo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FeedBackId");
+
+                    b.ToTable("Feedbacks");
+                });
+
+            modelBuilder.Entity("FriendsForever_App.Models.Likes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("LikeTimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LikeUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostedId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LikesMaster");
+                });
+
+            modelBuilder.Entity("FriendsForever_App.Models.LogForLogin", b =>
+                {
+                    b.Property<int>("LogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Ip_Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StatusFlag")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LogId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("LogTableForLogin");
+                });
+
+            modelBuilder.Entity("FriendsForever_App.Models.Post", b =>
+                {
+                    b.Property<string>("PostedId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CommentsCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LikesCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhotoAttached")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostedContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostedOwnerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostedOwnerPhoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostedOwnerUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PostedTimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("PostedId");
+
+                    b.ToTable("PostMaster");
+                });
+
+            modelBuilder.Entity("FriendsForever_App.Models.PostImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("PostedId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostedPhoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PostImagesMaster");
+                });
+
+            modelBuilder.Entity("FriendsForever_App.Models.QualityParameterTable", b =>
+                {
+                    b.Property<int>("ParamId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ParamMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ParamId");
+
+                    b.ToTable("QualityParameters");
+
+                    b.HasData(
+                        new
+                        {
+                            ParamId = 1,
+                            ParamMessage = "Bad"
+                        },
+                        new
+                        {
+                            ParamId = 2,
+                            ParamMessage = "Average"
+                        },
+                        new
+                        {
+                            ParamId = 3,
+                            ParamMessage = "Good"
+                        },
+                        new
+                        {
+                            ParamId = 4,
+                            ParamMessage = "Best"
+                        });
+                });
+
+            modelBuilder.Entity("FriendsForever_App.Models.UserInterest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Added_Time_Stamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InterestName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserInterestMaster");
+                });
+
             modelBuilder.Entity("FriendsForever_App.Security.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -1542,8 +1755,8 @@ namespace FriendsForever_App.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Doe")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Dob")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
@@ -1558,7 +1771,7 @@ namespace FriendsForever_App.Migrations
                     b.Property<string>("FullName")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("nvarchar(max)")
-                        .HasComputedColumnSql("[LastName] + ', ' + [FirstName]");
+                        .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
@@ -1744,6 +1957,13 @@ namespace FriendsForever_App.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("FriendsForever_App.Models.LogForLogin", b =>
+                {
+                    b.HasOne("FriendsForever_App.Security.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

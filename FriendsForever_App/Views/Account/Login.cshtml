@@ -42,12 +42,14 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="post">
                                         <div class="form-group">
-                                            <input asp-for="Username" class="form-control form-control-user" id="exampleInputUsername" aria-describedby="emailHelp" placeholder="Username">
+                                            <input asp-for="Username" class="form-control form-control-user" id="exampleInputUsername"
+                                                   aria-describedby="emailHelp" placeholder="Username" autocomplete="off">
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="Password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                            <input asp-for="Password" class="form-control form-control-user" id="exampleInputPassword"
+                                                   placeholder="Password" autocomplete="off">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -58,9 +60,9 @@
                                         <div class="form-group row">
                                             @Html.Recaptcha(RecaptchaSettings.Value)
                                         </div>
-                                        <a asp-action="Login" asp-controller="Account" class="btn btn-primary btn-user btn-block">
+                                        <button asp-action="Login" asp-controller="Account" class="btn btn-primary btn-user btn-block" type="submit">
                                             Login
-                                        </a>
+                                        </button>
                                         <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -90,6 +92,8 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="~/jquery/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/jquery-validate/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
     <script src="~/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
 
     <!-- Core plugin JavaScript-->

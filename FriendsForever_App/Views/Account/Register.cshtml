@@ -23,6 +23,9 @@
     <!-- Jquery UI Library -->
     <link href="~/jqueryui/jquery-ui.min.css" rel="stylesheet" asp-append-version="true" />
 
+    <!-- Bootstrap DateTime Picker Library -->
+    <link href="~/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" asp-append-version="true" />
+
     <!-- Custom styles for this template-->
     <link href="~/CustomCss/sb-admin-2.min.css" rel="stylesheet" asp-append-version="true">
 </head>
@@ -40,44 +43,59 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
+                            <form method="post" class="user">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input asp-for="FirstName" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+                                        <input asp-for="FirstName" class="form-control form-control-user" id="exampleFirstName"
+                                               placeholder="First Name" autocomplete="off">
                                         <span asp-validation-for="FirstName" class="text-danger"></span>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input asp-for="LastName" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+                                        <input asp-for="LastName" class="form-control form-control-user" id="exampleLastName"
+                                               placeholder="Last Name" autocomplete="off">
                                         <span asp-validation-for="LastName" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <input asp-for="Email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
-                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input asp-for="Username" class="form-control form-control-user" id="exampleUsername"
+                                               placeholder="Username" autocomplete="off">
+                                        <span asp-validation-for="Username" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input asp-for="Email" class="form-control form-control-user" id="exampleEmail"
+                                               placeholder="Email Address" autocomplete="off">
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input asp-for="MobileNo" class="form-control form-control-user" id="exampleMobile" placeholder="Mobile Number">
+                                        <input asp-for="MobileNo" class="form-control form-control-user" id="exampleMobile"
+                                               placeholder="Mobile Number" autocomplete="off">
                                         <span asp-validation-for="MobileNo" class="text-danger"></span>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input asp-for="Dob" class="form-control form-control-user" id="exampleDoe" placeholder="Date of birth">
+                                        <input asp-for="Dob" type="text" class="form-control form-control-user" id="exampleDob"
+                                               placeholder="Date of birth (mm/dd/yyyy)" autocomplete="off">
                                         <span asp-validation-for="Dob" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input asp-for="Gender" class="form-control form-control-user" id="exampleGender" placeholder="Gender">
+                                        <input asp-for="Gender" class="form-control form-control-user" id="exampleGender"
+                                               placeholder="Gender" autocomplete="off">
                                         <span asp-validation-for="Gender" class="text-danger"></span>
                                     </div>
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input asp-for="Country" class="form-control form-control-user" id="exampleCourtry" placeholder="Country">
+                                        <input asp-for="Country" class="form-control form-control-user" id="exampleCourtry"
+                                               placeholder="Country" autocomplete="off">
                                         <span asp-validation-for="Country" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input asp-for="Password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                        <input asp-for="Password" class="form-control form-control-user" id="exampleInputPassword"
+                                               placeholder="Password">
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
                                     <div class="col-sm-6">
@@ -88,16 +106,10 @@
                                 <div class="form-group row">
                                     @Html.Recaptcha(RecaptchaSettings.Value)
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-primary btn-user btn-block" 
+                                        asp-action="Register" asp-controller="Account">
                                     Register Account
-                                </a>
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fas fa-google-plus"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fas fa-facebook"></i> Register with Facebook
-                                </a>
+                                </button>
                             </form>
                             <hr>
                             <div class="text-center">
@@ -113,6 +125,8 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="~/jquery/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/jquery-validate/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
     <script src="~/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
 
     <!-- Core plugin JavaScript-->
@@ -121,38 +135,10 @@
 
     <!-- Custom scripts for all pages-->
     <script src="~/CustomJs/sb-admin-2.min.js" asp-append-version="true"></script>
-    <script>
-        $(document).ready(function () {
-            var availableTags = [
-                "Male",
-                "Female",
-                "Transgender"
-            ];
+    <script src="~/CustomJs/AutoCompleteCustomScript.js" asp-append-version="true"></script>
+    <script src="~/CustomJs/Register.js" asp-append-version="true"></script>
 
-            $('#exampleGender').autocomplete({
-                source: availableTags
-            });
-
-            $('#exampleCourtry').autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: "/Account/BindCountry",
-                        type: "POST",
-                        dataType: "json",
-                        data: { Prefix: request.term },
-                        success: function (data) {
-                            response($.map(data, function (item) {
-                                return { value: item.email };
-                            }))
-                        }
-                    })
-                },
-                messages: {
-                    noResults: "", results: ""
-                }
-            });
-
-        });
-    </script>
+    <!-- Bootstrap DateTime Picker Library -->
+    <script src="~/bootstrap-datepicker/js/bootstrap-datepicker.min.js" asp-append-version="true"></script>
 </body>
 </html>

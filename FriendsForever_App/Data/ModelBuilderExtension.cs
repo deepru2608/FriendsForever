@@ -36,6 +36,31 @@ namespace FriendsForever_App.Data
                 modelBuilder.Entity<Country>().HasData(CountryList);
             }
             #endregion
+
+            #region Feedback Quality Parameter Seeding
+            modelBuilder.Entity<QualityParameterTable>().HasData(
+                    new QualityParameterTable
+                    {
+                        ParamId = 1,
+                        ParamMessage = "Bad"
+                    },
+                    new QualityParameterTable
+                    {
+                        ParamId = 2,
+                        ParamMessage = "Average"
+                    },
+                    new QualityParameterTable
+                    {
+                        ParamId = 3,
+                        ParamMessage = "Good"
+                    },
+                    new QualityParameterTable
+                    {
+                        ParamId = 4,
+                        ParamMessage = "Best"
+                    }
+                );
+            #endregion
         }
     }
 }

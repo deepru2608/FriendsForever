@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Account Locked</title>
+    <link href="~/Bootstrap/css/bootstrap.min.css" asp-append-version="true" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">@ViewBag.Title</h4>
+            <p>
+                @ViewBag.Message
+                <hr>
+                <a asp-action="Login" asp-controller="Account" class="btn btn-primary">
+                    Click here to login
+                </a>
+        </div>
+    </div>
+</body>
+</html>
