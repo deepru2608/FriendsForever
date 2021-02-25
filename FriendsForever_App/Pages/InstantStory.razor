@@ -1,0 +1,72 @@
+﻿
+
+<div class="w3-card w3-round w3-white">
+    <div class="w3-container w3-padding">
+        <input type="text" @bind="YourStory" class="w3-border form-control w3-padding" autocomplete="off"
+               placeholder="Hi @Name, Write your thought..."/>
+        <button class="customButton-sm mr-1" @onclick="NewStory">
+            <i class="fas fa-external-link-square-alt"></i>&nbsp;<span style="font-size: 15px">Add Post</span>
+        </button>
+        <button class="customButton-sm" @onclick="NewPost">
+            <i class="fas fa-external-link-square-alt"></i>&nbsp;<span style="font-size: 15px">Create New Post</span>
+        </button>
+    </div>
+</div>
+
+@code {
+    public string YourStory { get; set; }
+    public string Name { get; set; }
+
+    private async Task<ApplicationUser> GetUser()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        return await userManager.GetUserAsync(user);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await GetUser();
+        Name = user.FullName;
+    }
+
+    void NewPost()
+    {
+        navigationManager.NavigateTo("Home/NewPost", true);
+    }
+
+    async Task NewStory()
+    {
+        if (string.IsNullOrEmpty(YourStory))
+        {
+            await jS.ShowAlert("Invalid Request!");
+        }
+        else
+        {
+            var user = await GetUser();
+            if (user != null)
+            {
+                string postId = Guid.NewGuid().ToString().GetHashCode().ToString("x");
+                Post post = new Post
+                {
+                    PostedId = postId,
+                    PostedOwnerName = user.FullName,
+                    PostedOwnerPhoto = user.ProfilePhotoPath,
+                    PostedOwnerUserId = user.Id,
+                    PostedContent = YourStory,
+                    PhotoAttached = "Not Attached",
+                    PostedTimeStamp = DateTime.Now
+                };
+                var result = await centerRepository.InsertNewPostAsync(post);
+                if (result > 0)
+                {
+                    StateHasChanged();
+                }
+                else
+                {
+                    await jS.ShowAlert("Invalid request, please try after sometimes!");
+                }
+            }
+        }
+    }
+}

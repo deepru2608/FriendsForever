@@ -25,6 +25,7 @@ namespace FriendsForever_App.Data
         public DbSet<Likes> LikesMaster { get; set; }
         public DbSet<Comments> CommentsMaster { get; set; }
         public DbSet<PostImages> PostImagesMaster { get; set; }
+        public DbSet<Friends> FriendsMaster { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +33,9 @@ namespace FriendsForever_App.Data
             modelBuilder.Entity<ApplicationUser>()
                 .Property(e => e.FullName)
                 .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
+            modelBuilder.Entity<Friends>()
+                .Property(e => e.Status)
+                .HasDefaultValue<string>("Pending");
             base.OnModelCreating(modelBuilder);
         }
     }

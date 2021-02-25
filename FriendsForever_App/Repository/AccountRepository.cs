@@ -24,6 +24,11 @@ namespace FriendsForever_App.Repository
             return liCountries;
         }
 
+        public async Task<ApplicationUser> GetUserByNameAsync(string Name)
+        {
+            return await dbContext.Users.FirstOrDefaultAsync(f => f.FullName.ToUpper() == Name.ToUpper());
+        }
+
         public ApplicationUser IsMobileInUse(string Mobile)
         {
             return dbContext.Users.FirstOrDefault(e => e.PhoneNumber.Contains(Mobile)); ;
@@ -35,22 +40,20 @@ namespace FriendsForever_App.Repository
             int result = 0;
             if (user != null)
             {
-                if (dbContext.ChangeTracker.HasChanges())
-                {
-                    user.FirstName = updatedUser.FirstName;
-                    user.LastName = updatedUser.LastName;
-                    user.FullName = $"{updatedUser.FirstName} {updatedUser.LastName}";
-                    user.ProfilePhotoPath = updatedUser.ProfilePhotoPath;
-                    user.Id = updatedUser.Id;
-                    dbContext.Update(user);
-                    return await dbContext.SaveChangesAsync();
-                }
-                else
-                {
-                    return 1;
-                }
+                user.FirstName = updatedUser.FirstName;
+                user.LastName = updatedUser.LastName;
+                user.FullName = $"{updatedUser.FirstName} {updatedUser.LastName}";
+                user.ProfilePhotoPath = updatedUser.ProfilePhotoPath;
+                user.Id = updatedUser.Id;
+                dbContext.Update(user);
+                return await dbContext.SaveChangesAsync();
             }
             return result;
+        }
+
+        public async Task<ApplicationUser> GetUserByUserIdAsync(string userId)
+        {
+            return await dbContext.Users.FirstOrDefaultAsync(f => f.Id == userId);
         }
     }
 }

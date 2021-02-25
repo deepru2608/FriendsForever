@@ -14,5 +14,9 @@ namespace FriendsForever_App.Repository
         ApplicationUser IsMobileInUse(string Mobile);
 
         Task<int> UpdateUserProfile(ApplicationUser user);
+
+        Task<ApplicationUser> GetUserByNameAsync(string Name);
+
+        Task<ApplicationUser> GetUserByUserIdAsync(string userId);
     }
 }

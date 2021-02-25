@@ -1,0 +1,22 @@
+﻿@using FriendsForever_App.Repository
+@using FriendsForever_App.ViewModels
+@using FriendsForever_App.Models
+@using Microsoft.AspNetCore.DataProtection
+@using FriendsForever_App.Security
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.JSInterop
+@using MatBlazor
+@using Microsoft.AspNetCore.ProtectedBrowserStorage
+
+@inject NavigationManager navigationManager
+@inject ICenterRepository centerRepository
+@inject IAccountRepository accountRepository
+@inject IDataProtectionProvider dataProtectionProvider
+@inject DataProtectionPurposeStrings dataProtectionPurposeStrings
+@inject UserManager<ApplicationUser> userManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime jS
+@inject ProtectedSessionStorage sessionStorage

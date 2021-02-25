@@ -234,5 +234,7 @@ namespace FriendsForever_App.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AccountLocked() => View();
+
+
     }
 }

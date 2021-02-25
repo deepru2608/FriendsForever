@@ -16,6 +16,8 @@ using Microsoft.Extensions.Hosting;
 using reCAPTCHA.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using MatBlazor;
+using Microsoft.JSInterop;
 
 namespace FriendsForever_App
 {
@@ -30,7 +32,7 @@ namespace FriendsForever_App
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<AppDbContext>(options => 
+            services.AddDbContextPool<AppDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -47,7 +49,7 @@ namespace FriendsForever_App
                 options.EnableEndpointRouting = false;
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).SetCompatibilityVersion(CompatibilityVersion.Latest);
-
+            services.AddServerSideBlazor();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
@@ -55,12 +57,14 @@ namespace FriendsForever_App
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
 
-
             services.Configure<RecaptchaSettings>(configuration.GetSection("RecaptchaSettingsv3"));
             RecaptchaService.UseRecaptchaNet = true;
             services.AddTransient<IRecaptchaService, RecaptchaService>();
+            services.AddSingleton<DataProtectionPurposeStrings>();
+            services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromDays(1));
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<ICenterRepository, CenterRepository>();
+            services.AddProtectedBrowserStorage();
         }
 
 
@@ -78,15 +82,24 @@ namespace FriendsForever_App
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseRouting();
             app.UseAuthentication();
             app.UseSession();
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "Default",
-                    template: "{controller=Home}/{action=Index}/{Id?}"
+                    pattern: "{controller=Home}/{action=Index}/{Id?}"
                 );
+                endpoints.MapBlazorHub();
             });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "Default",
+            //        template: "{controller=Home}/{action=Index}/{Id?}"
+            //    );
+            //});
         }
     }
 }

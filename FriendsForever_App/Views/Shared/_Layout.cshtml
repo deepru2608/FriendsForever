@@ -5,6 +5,8 @@
     <title>Friends Forever @ViewBag.Title</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/" />
+
     <link rel="stylesheet" href="~/CustomCss/w3-css.css" asp-append-version="true">
     <link rel="stylesheet" href="~/CustomCss/w3-theme-blue-grey.css" asp-append-version="true">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
@@ -12,9 +14,15 @@
     <link href="~/font-awesome/css/fontawesome.min.css" rel="stylesheet" asp-append-version="true" />
     <!-- Bootstrap Class -->
     <link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+    <!-- Sweatalert Library -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" asp-append-version="true"></script>
+    <!-- Jquery UI Library -->
+    <link href="~/jqueryui/jquery-ui.min.css" rel="stylesheet" asp-append-version="true" />
+    <!-- Mat Blazor Library for Blazor -->
+    <link href="_content/MatBlazor/dist/matBlazor.css" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="~/CustomCss/main.css" rel="stylesheet" />
 
-    <!-- Bootstrap Sweatalert Library -->
-    <link href="~/bootstrap-sweetalert/sweetalert.min.css" rel="stylesheet" asp-append-version="true" />
 
     <style>
         html, body, h1, h2, h3, h4, h5 {
@@ -28,7 +36,6 @@
     </style>
 </head>
 <body class="w3-theme-l5">
-
     <!-- Navbar -->
     <div class="w3-top">
         <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
@@ -102,8 +109,21 @@
     <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
     <script src="~/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
 
-    <!-- Bootstrap Sweatalert Library -->
-    <script src="~/bootstrap-sweetalert/sweetalert.min.js" asp-append-version="true"></script>
+    <!-- Jquery UI Library -->
+    <script src="~/jqueryui/jquery-ui.min.js" asp-append-version="true"></script>
+
+    <!-- Custom Scripts -->
+    <script src="~/CustomJs/AutoCompleteCustomScript.js" asp-append-version="true"></script>
+
+    <!-- Add Blazor Script file to create signalR Connection -->
+    <script src="_framework/blazor.server.js"></script>
+
+    <!-- Mat Blazor Library for Blazor -->
+    <script src="_content/MatBlazor/dist/matBlazor.js" asp-append-version="true"></script>
+    <script src="~/CustomJs/mainSite.js" asp-append-version="true"></script>
+
+    <!-- Browser Storage Library-->
+    <script src="_content/Microsoft.AspNetCore.ProtectedBrowserStorage/protectedBrowserStorage.js"></script>
 
     @if (IsSectionDefined("Scripts"))
     {

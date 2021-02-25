@@ -1,0 +1,68 @@
+﻿
+<div class="w3-card w3-round w3-white">
+    <div class="w3-container">
+        <h4 class="w3-center mt-1 text-primary" style="padding-top: 5px;">@model.Name</h4>
+        <p class="w3-center">
+            @{
+                var profilePhotoPath = (model.ProfilePhotoPath ?? "Microsoft_Default.png");
+            }
+            <img src="/Images/ProfileImage/@profilePhotoPath" class="w3-circle" style="height:106px;width:106px" alt="Deepanshu">
+        </p>
+        <p class="w3-center">
+            <a href="/Home/ViewProfile" class="btn btn-sm btn-primary" style="color: white; list-style: none">View Profile</a>
+        </p>
+        <hr>
+        <p><i class="fas fa-envelope-open-text fa-fw w3-margin-right w3-text-theme"></i> @model.Email</p>
+        <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> @model.Country</p>
+        <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> @model.Dob.ToLongDateString()</p>
+    </div>
+</div>
+<br>
+
+<!-- Interests -->
+<div class="w3-card w3-round w3-white w3-hide-small">
+    <div class="w3-container">
+        <p>Interests</p>
+        <p>
+            @if (model.UserInterests.Any())
+            {
+                @foreach (var userInterest in model.UserInterests)
+                {
+                    <span class="w3-tag w3-small w3-theme">@userInterest</span>
+                }
+            }
+            else
+            {
+                <span class="w3-tag w3-small w3-theme">No interest added.</span>
+            }
+        </p>
+    </div>
+</div>
+<br />
+
+@code {
+    public UserDashboardViewModel model = new UserDashboardViewModel();
+    private IDataProtector dataProtector;
+
+    private async Task<ApplicationUser> GetUser()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        return await userManager.GetUserAsync(user);
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        dataProtector = dataProtectionProvider.CreateProtector(dataProtectionPurposeStrings.RouteValue);
+        var user = await GetUser();
+        if (user != null)
+        {
+            model.Name = user.FullName;
+            model.Dob = user.Dob;
+            model.Country = user.Country;
+            model.Email = user.Email;
+            model.ProfilePhotoPath = user.ProfilePhotoPath;
+            IEnumerable<string> interests = await centerRepository.FindByIdUserInterestAsync(user.Id);
+            model.UserInterests = interests;
+        }
+    }
+}

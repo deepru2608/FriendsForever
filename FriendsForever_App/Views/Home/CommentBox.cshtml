@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "CommentBox";
+}
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px">
+    <!-- The Grid -->
+    <div class="w3-row">
+        <!-- Left Column -->
+        <div class="w3-col m3 mt-2" style="display: inline-block">
+            <!-- Profile -->
+            @(await Html.RenderComponentAsync<Profile>(RenderMode.Server))
+        </div>
+        <!-- Middle Column -->
+        <div class="w3-col m7">
+            @(await Html.RenderComponentAsync<CommentBoxes>(RenderMode.Server))
+        </div>
+        <!-- Right Column -->
+        <div class="w3-col m2" style="display: inline-block">
+            <div class="w3-card w3-round w3-white w3-center">
+                <!-- Load New Friend Request Components Async -->
+                @(await Html.RenderComponentAsync<NewFriendRequest>(RenderMode.Server))
+            </div>
+            <br>
+
+            <div class="w3-card w3-round w3-white">
+                <!-- Load All Friend List Components Async -->
+                @(await Html.RenderComponentAsync<FriendsList>(RenderMode.Server))
+            </div>
+            <br />
+
+            <div class="w3-card w3-round w3-white w3-center">
+                <!-- Load Pending Request List Components Async -->
+                @(await Html.RenderComponentAsync<PendingRequestList>(RenderMode.Server))
+            </div>
+
+            <!-- End Right Column -->
+        </div>
+    </div>
+</div>
+

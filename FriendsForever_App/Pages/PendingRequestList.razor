@@ -1,0 +1,57 @@
+﻿
+
+<style>
+    .customHoverEffect {
+        padding: 10px;
+    }
+
+        .customHoverEffect:hover {
+            background-color: #EAF0F1;
+            padding: 10px;
+            border-radius: 2px;
+            color: #4834DF;
+        }
+</style>
+
+
+<div class="w3-container">
+    <p style="padding-top: 5px; font-size: 18px" class="text-primary">Pending List</p>
+    @if (PendingList.Any())
+    {
+        @foreach (var friends in PendingList)
+        {
+            var photoData = (friends.ProfilePhotoPath ?? "Microsoft_Default.png");
+            <div class="pt-2 pb-4">
+                <div class="customHoverEffect">
+                    <img src="/Images/ProfileImage/@photoData" class="w3-circle" alt="Avatar" style="height:106px;width:106px"><br>
+                    <span class="text-info">@friends.SenderFullName</span>
+                    <div class="w3-row w3-opacity">
+                        <button class="w3-button w3-block w3-blue w3-section" title="Decline">Pending</button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="mt-2">
+            <p style="padding-top: 5px" class="text-info">No request pending</p>
+        </div>
+    }
+</div>
+
+@code {
+    IEnumerable<ShowFriendsReuqestData> PendingList = new List<ShowFriendsReuqestData>();
+    private async Task<ApplicationUser> GetUser()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        return await userManager.GetUserAsync(user);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await GetUser();
+        PendingList = await centerRepository.GetPendingFriendsRequestAsync(user.Id);
+    }
+}

@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Deepu\\Desktop\\Asp Net Core\\Social Network\\FriendsForever\\FriendsForever\\FriendsForever_App\\FriendsForever_App.csproj": {}
+    "C:\\Users\\deepa\\Desktop\\Asp Net Core\\Social Network\\FriendsForever\\FriendsForever\\FriendsForever_App\\FriendsForever_App.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Deepu\\Desktop\\Asp Net Core\\Social Network\\FriendsForever\\FriendsForever\\FriendsForever_App\\FriendsForever_App.csproj": {
+    "C:\\Users\\deepa\\Desktop\\Asp Net Core\\Social Network\\FriendsForever\\FriendsForever\\FriendsForever_App\\FriendsForever_App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Deepu\\Desktop\\Asp Net Core\\Social Network\\FriendsForever\\FriendsForever\\FriendsForever_App\\FriendsForever_App.csproj",
+        "projectUniqueName": "C:\\Users\\deepa\\Desktop\\Asp Net Core\\Social Network\\FriendsForever\\FriendsForever\\FriendsForever_App\\FriendsForever_App.csproj",
         "projectName": "FriendsForever_App",
-        "projectPath": "C:\\Users\\Deepu\\Desktop\\Asp Net Core\\Social Network\\FriendsForever\\FriendsForever\\FriendsForever_App\\FriendsForever_App.csproj",
-        "packagesPath": "C:\\Users\\Deepu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Deepu\\Desktop\\Asp Net Core\\Social Network\\FriendsForever\\FriendsForever\\FriendsForever_App\\obj\\",
+        "projectPath": "C:\\Users\\deepa\\Desktop\\Asp Net Core\\Social Network\\FriendsForever\\FriendsForever\\FriendsForever_App\\FriendsForever_App.csproj",
+        "packagesPath": "C:\\Users\\deepa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\deepa\\Desktop\\Asp Net Core\\Social Network\\FriendsForever\\FriendsForever\\FriendsForever_App\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Deepu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\deepa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +22,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/75HPhdhiDjqmNMexUe7a8g3e8DmzweROvIMAg2GvmUcWzpCRHW/api": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -41,27 +39,43 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "ClientNotifications": {
+              "target": "Package",
+              "version": "[1.17.1, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.35, )"
+            },
+            "MatBlazor": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.1.2, )"
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.AspNetCore.ProtectedBrowserStorage": {
+              "target": "Package",
+              "version": "[0.1.0-alpha.19521.1, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.1.2, )"
+              "version": "[3.1.3, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.1.2, )"
+              "version": "[3.1.3, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.2, )"
+              "version": "[3.1.3, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.2, )"
             },
             "reCAPTCHA.AspNetCore": {
               "target": "Package",
@@ -86,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

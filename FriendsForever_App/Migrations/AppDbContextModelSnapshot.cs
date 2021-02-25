@@ -1575,6 +1575,35 @@ namespace FriendsForever_App.Migrations
                     b.ToTable("Feedbacks");
                 });
 
+            modelBuilder.Entity("FriendsForever_App.Models.Friends", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Pending");
+
+                    b.Property<DateTime>("Time_Stamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UniqueId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserIdRequest")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserIdResponse")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FriendsMaster");
+                });
+
             modelBuilder.Entity("FriendsForever_App.Models.Likes", b =>
                 {
                     b.Property<int>("Id")

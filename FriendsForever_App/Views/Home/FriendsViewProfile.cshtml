@@ -1,0 +1,111 @@
+﻿@model FriendsProfileViewModel
+@{
+    ViewData["Title"] = "View Friend Profile";
+}
+
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+    <div class="card pt-4">
+        <div class="w3-row">
+            <div class="w3-col m12 text-center">
+                <h4><span class="text-primary border-bottom">View Profile</span></h4>
+            </div>
+            <form method="post">
+                <div class="row m-5">
+                    <div class="col-sm-6 pb-2">
+                        @{
+                            var profilePhotoPath = (Model.ProfilePhotoPath ?? "Microsoft_Default.png");
+                        }
+                        <img src="~/Images/ProfileImage/@profilePhotoPath" alt="Avatar" class="w3-left w3-circle w3-margin-right"
+                             style="width:150px; height: 150px;" asp-append-version="true">
+                        <h4 class="pt-2"><span class="text-primary">@Model.FirstName @Model.LastName</span></h4>
+                        @{ string FullName = Model.FirstName + " " + Model.LastName; }
+                        @if (Model.SentFlag)
+                        {
+                            <button type="submit" class="btn btn-sm btn-info"
+                                    asp-action="AddFriend" asp-controller="Home" asp-route-name="@FullName">
+                                Add Friend
+                            </button>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn btn-sm btn-info">Already Sent or Freind</a>
+                        }
+                    </div>
+                    <div class="col-sm-6 mt-1 mb-1">
+                        <p><i class="fas fa-mobile-alt fa-fw w3-margin-right w3-text-theme"></i> @Model.Country</p>
+                        <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> @Model.Dob.ToLongDateString()</p>
+                        <p><i class="fas fa-envelope-open-text fa-fw w3-margin-right w3-text-theme"></i> @Model.Gender</p>
+                    </div>
+                    <div class="col-sm-12 mt-2">
+                        <div class="w3-card w3-round w3-white w3-hide-small">
+                            <div class="w3-container">
+                                <p class="pt-1 text-info">Interests</p>
+                                <p>
+                                    @if (Model.UserInterests.Any())
+                                    {
+                                        @foreach (var userInterest in Model.UserInterests)
+                                        {
+                                            <span class="w3-tag w3-small w3-theme">@userInterest</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="w3-tag w3-small w3-theme">No interest added.</span>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 mt-5">
+                        <div class="row">
+                            <div class="col-sm-12 mb-3 text-center">
+                                <h4><span class="text-primary">Image Gallery</span></h4>
+                            </div>
+                            @foreach (var Images in Model.ImagesGallery)
+                            {
+                                var photo = (Images ?? "Microsoft_Default.png");
+                                string[] checkContent = photo.Split('.');
+                                if (checkContent[checkContent.Length - 1].ToLower() == "png" || checkContent[checkContent.Length - 1].ToLower() == "jpg"
+                                || checkContent[checkContent.Length - 1].ToLower() == "jpeg" || checkContent[checkContent.Length - 1].ToLower() == "gif")
+                                {
+                                    <div class="col-sm-4 p-3">
+                                        <div class="card">
+                                            <img class="card-img img-fluid" src="~/Images/PostImages/@photo" alt="Card image"
+                                                 style="width: 100%; height: 100%">
+                                        </div>
+                                    </div>
+                                }
+                                else if (checkContent[checkContent.Length - 1].ToLower() == "mp4" || checkContent[checkContent.Length - 1].ToLower() == "m4v"
+                                || checkContent[checkContent.Length - 1].ToLower() == "m4v" || checkContent[checkContent.Length - 1].ToLower() == "mov")
+                                {
+                                    <div class="col-sm-4 p-3">
+                                        <div class="card">
+                                            <video width="320" height="240" controls>
+                                                <source src="/Images/PostImages/@photo" type="video/@checkContent[checkContent.Length - 1].ToLower()">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+                                    </div>
+                                }
+                                else if (checkContent[checkContent.Length - 1].ToLower() == "mp3" || checkContent[checkContent.Length - 1].ToLower() == "wav"
+                                || checkContent[checkContent.Length - 1].ToLower() == "aac")
+                                {
+                                    <div class="col-sm-4 p-3">
+                                        <div class="card">
+                                            <audio controls>
+                                                <source src="/Images/PostImages/@photo" type="audio/@checkContent[checkContent.Length - 1].ToLower()">
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

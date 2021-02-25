@@ -1,0 +1,74 @@
+﻿
+
+<form method="post">
+    <div class="w3-container mb-2">
+        <p style="padding-top: 5px; font-size: 18px" class="text-primary">Friend Request</p>
+        @if (NewFriendsRequest.Any())
+        {
+            @foreach (var friends in NewFriendsRequest)
+            {
+                var photoData = (friends.ProfilePhotoPath ?? "Microsoft_Default.png");
+                <div class="mt-2">
+                    <img src="/Images/ProfileImage/@photoData" class="w3-circle" alt="Avatar" style="height:106px;width:106px"><br>
+                    <span class="text-info">@friends.SenderFullName</span>
+                    <div class="w3-row w3-opacity">
+                        <div class="w3-half">
+                            <button type="submit" class="w3-button w3-block w3-green w3-section"
+                                    @onclick="(e => AcceptFriendRequest(friends.EncryptFullName))">
+                                Accept
+                            </button>
+                        </div>
+                        <div class="w3-half">
+                            <button type="submit" class="w3-button w3-block w3-red w3-section"
+                                    @onclick="(e => RejectFriendRequest(friends.EncryptFullName))">
+                                Reject
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="mt-2">
+                <p style="padding-top: 5px" class="text-info">No request available.</p>
+            </div>
+        }
+    </div>
+</form>
+
+@code {
+    public IEnumerable<ShowFriendsReuqestData> NewFriendsRequest = new List<ShowFriendsReuqestData>();
+    private IDataProtector dataProtector;
+
+    private async Task<ApplicationUser> GetUser()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        return await userManager.GetUserAsync(user);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await GetUser();
+        dataProtector = dataProtectionProvider.CreateProtector(dataProtectionPurposeStrings.RouteValue);
+        NewFriendsRequest = await centerRepository.GetNewFriendsRequestAsync(user.Id);
+        foreach (var item in NewFriendsRequest)
+        {
+            string encFullName = dataProtector.Protect(item.SenderFullName);
+            item.EncryptFullName = encFullName;
+        }
+    }
+
+    protected void AcceptFriendRequest(string encName)
+    {
+        string UriPath = $"/Home/AcceptFriendRequest?encName={encName}";
+        navigationManager.NavigateTo(UriPath, true);
+    }
+
+    protected void RejectFriendRequest(string encName)
+    {
+        string UriPath = $"/Home/RejectFriendRequest?encName={encName}";
+        navigationManager.NavigateTo(UriPath, true);
+    }
+}

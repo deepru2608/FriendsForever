@@ -11,9 +11,6 @@ namespace FriendsForever_App.ViewModels
         public UserDashboardViewModel()
         {
             UserInterests = new List<string>();
-            AllPhotos = new List<PostImages>();
-            AllPosts = new List<Post>();
-            PostPhotoCount = new List<CountPostImages>();
         }
 
         public string Name { get; set; }
@@ -22,15 +19,8 @@ namespace FriendsForever_App.ViewModels
         public DateTime Dob { get; set; }
         public string ProfilePhotoPath { get; set; }
         public IEnumerable<string> UserInterests { get; set; }
-        public IEnumerable<Post> AllPosts { get; set; }
-        public List<CountPostImages> PostPhotoCount { get; set; }
-        public IEnumerable<PostImages> AllPhotos { get; set; }
         public string YourStory { get; set; }
-    }
-
-    public class CountPostImages
-    {
-        public string PostedId { get; set; }
-        public int PostPhotoCount { get; set; }
+        public string SearchFriend { get; set; }
+        public string userId { get; set; }
     }
 }
